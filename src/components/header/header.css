@@ -1,4 +1,8 @@
-.header-right li:hover {
+.header-right > li:hover > a {
   color: #da2f68;
   cursor: pointer;
+}
+
+.header-menu-profile ul li:hover {
+  background-color: rgba(0, 0, 0, 0.25);
 }
