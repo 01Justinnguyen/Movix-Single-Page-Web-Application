@@ -3,7 +3,7 @@ import './footer.css'
 
 const Footer = () => {
   return (
-    <footer className="footer py-[50px] text-white absolute bottom-0 w-full">
+    <footer className="footer py-[50px] text-white bottom-0 w-full">
       <div className="contentWrapper">
         <ul className="font-bold menuItems">
           <li className="menuItem">Terms Of Use</li>
