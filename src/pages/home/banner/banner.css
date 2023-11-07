@@ -55,3 +55,7 @@
   background: linear-gradient(98.37deg, #f89e00 0.99%, #da2f68 100%);
   border-radius: 0 30px 30px 0;
 }
+
+.header-menu-profile {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
