@@ -1,0 +1,9 @@
+.officialVideo {
+  color: white;
+}
+.heading {
+}
+.videos {
+  display: flex;
+  flex-direction: row;
+}
