@@ -1,0 +1,11 @@
+.posterFallback {
+  padding-top: 60px;
+  /* font-size: 0px; */
+  padding-bottom: 100px;
+}
+.posterImg {
+  max-width: 350px;
+  width: 100%;
+  border-radius: 12px;
+  display: block;
+}
