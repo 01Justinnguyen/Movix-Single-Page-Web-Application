@@ -1,0 +1,35 @@
+.caseSection {
+  color: white;
+  margin-bottom: 50px;
+  max-width: 1200px;
+}
+.heading {
+  margin-bottom: 25px;
+}
+.listItems {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+.listItem {
+  text-align: center;
+  align-items: center;
+}
+.profice {
+  width: 175px;
+  height: 175px;
+  overflow: hidden;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 50%;
+}
+.name {
+  font-size: 18px;
+  line-height: 24px;
+  opacity: 1;
+}
+.character {
+  font-size: 16px;
+  line-height: 24px;
+  opacity: 0.5;
+}
