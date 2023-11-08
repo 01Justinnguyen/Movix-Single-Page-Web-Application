@@ -1,6 +1,6 @@
 import debounce from 'lodash.debounce'
 import { useEffect, useState } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation, NavLink } from 'react-router-dom'
 import './header.css'
 
 const Header = () => {
@@ -19,14 +19,14 @@ const Header = () => {
   //Xử lý ẩn hiện khi scroll header
   useEffect(() => {
     const headerScroll = window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) {
+      if (window.scrollY > 200) {
         setShow(false)
       } else {
         setShow(true)
       }
     })
     return () => {
-      removeEventListener(headerScroll)
+      window.removeEventListener(headerScroll)
     }
   }, [])
 
@@ -42,25 +42,34 @@ const Header = () => {
     setShowSearch(true)
   }
 
-  const setFilterDebounce = debounce((e) => setQuery(e.target.value), 500)
+  const handleSearchQuery = (e) => {
+    if (e.key === 'Enter' && query?.length > 0) {
+      navigate(`/search/${query}`)
+      setTimeout(() => {
+        setShowSearch(false)
+      }, 800)
+    }
+  }
+
+  const setFilterDebounce = debounce((e) => setQuery(e.target.value), 300)
   console.log('🐻 ~ file: Header.jsx:11 ~ Header ~ query:', query)
 
   return (
     <header className={`transition-all fixed w-[100%] h-[60px] z-[2] bg-[rgba(0,0,0,0.25)] backdrop-blur-sm ${show ? '' : 'translate-y-[-60px]'}`}>
       <div className="flex items-center justify-between h-full contentWrapper">
         <div className="cursor-pointer" onClick={() => navigate('/')}>
-          <img className="h-[50px] hover:opacity-95 hover:scale-105" src="./movix-logo.svg" alt="Movix logo" />
+          <img className="h-[50px] hover:opacity-95 hover:scale-105" src="/movix-logo.svg" alt="Movix logo" />
         </div>
 
         <div className="flex items-center text-lg text-white list-none header-right gap-x-5">
           <li>
-            <a href="#">Movies</a>
+            <NavLink to={'/explore/movie'}>Movies</NavLink>
           </li>
           <li>
-            <a href="#">TV Shows</a>
+            <NavLink to={'/explore/tv'}>TV Shows</NavLink>
           </li>
-          <li className="relative" onClick={handleShowProfile}>
-            <a href="#">
+          <li className="relative cursor-pointer hover:text-pink" onClick={handleShowProfile}>
+            <span href="#">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
                 <path
                   strokeLinecap="round"
@@ -68,15 +77,15 @@ const Header = () => {
                   d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"
                 />
               </svg>
-            </a>
+            </span>
             {showProfile && (
               <div className="absolute header-menu-profile w-[200px] top-[130%] right-0 bg-primary bg-opacity-80 text-white rounded-lg">
-                <div className="bg-primary rounded-lg text-center h-7 text-white m-2">
+                <div className="m-2 text-center text-white rounded-lg bg-primary h-7">
                   <span>Hello Liam</span>
                 </div>
-                <ul className="list-action m-2">
+                <ul className="m-2 list-action">
                   <li className="p-1 hover:text-pink">
-                    <a className="gap-x-2 flex items-center" href="">
+                    <a className="flex items-center gap-x-2" href="">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
                         <path
                           strokeLinecap="round"
@@ -88,7 +97,7 @@ const Header = () => {
                     </a>
                   </li>
                   <li className="p-1 hover:text-pink">
-                    <a className="gap-x-2 flex items-center" href="">
+                    <a className="flex items-center gap-x-2" href="">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
                         <path
                           strokeLinecap="round"
@@ -114,12 +123,12 @@ const Header = () => {
       </div>
 
       {showSearch && (
-        <div className="searchBar bg-white absolute w-full animate-searchDown">
+        <div className="absolute w-full bg-white searchBar animate-searchDown">
           <div className="contentWrapper">
             <div className="searchInput">
-              <input onChange={setFilterDebounce} className="p-4 font-medium text-lg" type="text" placeholder="Search for a movie or tv show...." />
+              <input onKeyUp={handleSearchQuery} onChange={setFilterDebounce} className="p-4 text-lg font-medium" type="text" placeholder="Search for a movie or tv show...." />
               <span onClick={handleCloseSearch} className="block text-xl">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 cursor-pointer hover:scale-150 transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 transition-all cursor-pointer hover:scale-150">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </span>

@@ -1,12 +1,18 @@
 import {} from 'react'
-import { useNavigate } from 'react-router-dom'
 import Banner from '../banner/Banner'
+import Popular from '../popular/Popular'
+import TopRated from '../topRated/TopRated'
+import Trending from '../trending/Trending'
+import Upcoming from '../upcoming/Upcoming'
 
 const Home = () => {
-  const navigate = useNavigate()
   return (
-    <div className="home page">
+    <div className="text-white home page">
       <Banner />
+      <Trending />
+      <Popular />
+      <TopRated />
+      <Upcoming />
     </div>
   )
 }

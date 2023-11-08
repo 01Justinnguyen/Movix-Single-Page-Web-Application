@@ -2,8 +2,10 @@ import LazyImage from '@/components/lazyLoadImage/LazyImage'
 import useFetchData from '@/hooks/useFetchData'
 import debounce from 'lodash.debounce'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './banner.css'
 const Banner = () => {
+  const navigate = useNavigate()
   const [background, setBackground] = useState()
   const [query, setQuery] = useState(null)
   const { data, loading } = useFetchData('/movie/upcoming')
@@ -31,6 +33,12 @@ const Banner = () => {
 
   const setFilterDebounce = debounce((e) => setQuery(e.target.value), 500)
 
+  const handleSearchQuery = (e) => {
+    if (e.key === 'Enter' && query?.length > 0) {
+      navigate(`/search/${query}`)
+    }
+  }
+
   return (
     <div className="banner">
       {!loading && background && (
@@ -45,8 +53,16 @@ const Banner = () => {
           <span className="block title mb-0 text-[98px] font-bold leading-tight">Welcome.</span>
           <span className="subTitle text-[24px] mb-10">Millions of movies, TV shows and people to discover. Explore now.</span>
           <div className="searchInput">
-            <input onChange={setFilterDebounce} className="text-[14px] font-semibold h-[50px] bg-white outline-none border-none px-5" type="text" placeholder="Search for a movie or tv show...." />
-            <button className="w-[100px] h-[50px] text-white outline-none border-none text-base cursor-pointer hover:opacity-95">Search</button>
+            <input
+              onKeyUp={handleSearchQuery}
+              onChange={setFilterDebounce}
+              className="text-[14px] font-semibold h-[50px] bg-white outline-none border-none px-5"
+              type="text"
+              placeholder="Search for a movie or tv show...."
+            />
+            <button onClick={() => navigate(`/search/${query}`)} className="w-[100px] h-[50px] text-white outline-none border-none text-base cursor-pointer hover:opacity-95">
+              Search
+            </button>
           </div>
         </div>
       </div>
