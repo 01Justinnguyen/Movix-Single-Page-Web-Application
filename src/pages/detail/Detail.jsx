@@ -2,21 +2,23 @@ import React from 'react';
 import './detail.css';
 import TopCast from '../detail/topCast/TopCast';
 import Videos from '../detail/officialVideos/Videos';
+import useFetchData from '@/hooks/useFetchData';
 const Detail = () => {
+  const { data, loading } = useFetchData('/movie/744857');
+  const url = 'https://image.tmdb.org/t/p/original';
+  // console.log(url + data?.backdrop_path);
+  console.log(data);
+
   return (
     <>
       <div className="contentWrapper">
         <div className="posterFallback">
           <div className="content">
             <div className="left">
-              <img
-                src="https://image.tmdb.org/t/p/original/A4j8S6moJS2zNtRR8oWF08gRnL5.jpg"
-                alt=""
-                className="posterImg"
-              />
+              <img src={url + data?.poster_path} alt="" className="posterImg" />
             </div>
             <div className="right">
-              <div className="title">Five Nights at Freddy's (2023)</div>
+              <div className="title">Five Nights at Freddys (2023)</div>
               <div className="subtitle">Can you survive five nights?</div>
               <div className="genres">
                 <div className="genre bg-pink">Horror</div>
@@ -28,8 +30,8 @@ const Detail = () => {
                 <div className="description">
                   Recently fired and desperate for work, a troubled young man
                   named Mike agrees to take a position as a night security guard
-                  at an abandoned theme restaurant: Freddy Fazbear's Pizzeria.
-                  But he soon discovers that nothing at Freddy's is what it
+                  at an abandoned theme restaurant: Freddy Fazbears Pizzeria.
+                  But he soon discovers that nothing at Freddys is what it
                   seems.
                 </div>
               </div>
