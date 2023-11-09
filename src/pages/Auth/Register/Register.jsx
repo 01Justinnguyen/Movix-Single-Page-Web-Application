@@ -1,8 +1,9 @@
 import React from 'react'
+import AuthenticationPage from '../AuthenticationPage'
 import './register.css'
 
 const Register = () => {
-  return <div>This is Register page</div>
+  return <AuthenticationPage>This is Register page</AuthenticationPage>
 }
 
 export default Register
