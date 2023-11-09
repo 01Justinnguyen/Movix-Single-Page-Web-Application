@@ -3,6 +3,7 @@ import './detail.css';
 import TopCast from '../detail/topCast/TopCast';
 import Videos from '../detail/officialVideos/Videos';
 import useFetchData from '@/hooks/useFetchData';
+import CircleRating from '@/components/circleRating/CircleRating';
 const Detail = () => {
   const { data, loading } = useFetchData('/movie/744857');
   const url = 'https://image.tmdb.org/t/p/original';
@@ -24,7 +25,11 @@ const Detail = () => {
                 <div className="genre bg-pink">Horror</div>
                 <div className="genre bg-pink">Mystery</div>
               </div>
-              <div className="row"></div>
+              <div className="row">
+                <div className="circleRating">
+                  <CircleRating rating={data?.vote_average.toFixed(1)} />
+                </div>
+              </div>
               <div className="overview">
                 <div className="heading">Overview</div>
                 <div className="description">
