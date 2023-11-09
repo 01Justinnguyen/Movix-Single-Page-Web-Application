@@ -45,6 +45,12 @@
   padding: 3px 5px;
   border-radius: 4px;
 }
+.row {
+  margin-bottom: 25px;
+}
+.circleRating {
+  max-width: 90px;
+}
 .overview {
   margin-bottom: 25px;
 }
