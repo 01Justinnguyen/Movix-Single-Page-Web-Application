@@ -16,17 +16,19 @@ const Header = () => {
     window.scrollTo(0, 0)
   }, [location])
 
+  const controlNavbar = () => {
+    if (window.scrollY > 200) {
+      setShow(false)
+    } else {
+      setShow(true)
+    }
+  }
+
   //Xử lý ẩn hiện khi scroll header
   useEffect(() => {
-    const headerScroll = window.addEventListener('scroll', () => {
-      if (window.scrollY > 200) {
-        setShow(false)
-      } else {
-        setShow(true)
-      }
-    })
+    window.addEventListener('scroll', controlNavbar)
     return () => {
-      window.removeEventListener(headerScroll)
+      window.removeEventListener('scroll', controlNavbar)
     }
   }, [])
 
