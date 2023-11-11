@@ -1,7 +1,12 @@
-import React from 'react'
+import Carousel from '@/components/carousel/Carousel'
+import {} from 'react'
 
 const Trending = () => {
-  return <div>This is Trending session</div>
+  return (
+    <div className="trending">
+      <Carousel title={'Trending'} />
+    </div>
+  )
 }
 
 export default Trending

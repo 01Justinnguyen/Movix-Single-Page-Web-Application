@@ -21,6 +21,18 @@ export default {
 
       animation: {
         searchDown: 'searchDown 0.3s ease-in-out'
+      },
+
+      backgroundImage: {
+        'hero-pattern': 'linear-gradient(98.37deg, #f89e00 0.99%, #da2f68 100%)'
+      },
+
+      transitionProperty: {
+        switchTab: 'left cubic-bezier(0.88, -0.35, 0.565, 1.35) 0.4s'
+      },
+
+      transitionDuration: {
+        600: '600ms'
       }
     }
   },
