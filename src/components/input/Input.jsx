@@ -10,7 +10,7 @@ const Input = ({ control, label = '', name = '', type = 'text', placeholder = 'P
 
   return (
     <div className="relative w-full Input">
-      <label className="block mb-2 text-[18px] text-white" htmlFor={name}>
+      <label className="block mb-3 text-[18px] text-white" htmlFor={name}>
         {label}
       </label>
       <input
@@ -18,7 +18,7 @@ const Input = ({ control, label = '', name = '', type = 'text', placeholder = 'P
         type={showToggle ? 'password' : `${type}`}
         name={name}
         autoComplete="off"
-        id="name"
+        id={name}
         placeholder={placeholder}
       />
       {Boolean(hasIcon) === true ? (
