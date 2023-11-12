@@ -46,11 +46,33 @@
   border-radius: 4px;
 }
 .row {
+  max-height: 90px;
   margin-bottom: 25px;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
 }
 .circleRating {
   max-width: 90px;
 }
+.playBtn {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+.playBtn:hover {
+  cursor: pointer;
+  
+}
+.playBtn svg {
+  width: 90px;
+  height: 90px;
+}
+.playBtn .text {
+  line-height: 90px;
+  font-size: 20px;
+}
+
 .overview {
   margin-bottom: 25px;
 }

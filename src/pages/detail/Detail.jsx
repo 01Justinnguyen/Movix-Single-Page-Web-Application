@@ -4,6 +4,8 @@ import TopCast from '../detail/topCast/TopCast';
 import Videos from '../detail/officialVideos/Videos';
 import useFetchData from '@/hooks/useFetchData';
 import CircleRating from '@/components/circleRating/CircleRating';
+import Playbtn from './Playbtn';
+import Carousel from '@/components/Carousel/Carousel';
 const Detail = () => {
   const { data, loading } = useFetchData('/movie/744857');
   const url = 'https://image.tmdb.org/t/p/original';
@@ -19,7 +21,7 @@ const Detail = () => {
               <img src={url + data?.poster_path} alt="" className="posterImg" />
             </div>
             <div className="right">
-              <div className="title">Five Nights at Freddys (2023)</div>
+              <div className="title">{data?.title}</div>
               <div className="subtitle">Can you survive five nights?</div>
               <div className="genres">
                 <div className="genre bg-pink">Horror</div>
@@ -28,6 +30,10 @@ const Detail = () => {
               <div className="row">
                 <div className="circleRating">
                   <CircleRating rating={data?.vote_average.toFixed(1)} />
+                </div>
+                <div className="playBtn hover:text-pink">
+                  <Playbtn />
+                  <div className="text">Watch Trailer</div>
                 </div>
               </div>
               <div className="overview">
@@ -76,6 +82,9 @@ const Detail = () => {
         </div>
         <div>
           <Videos />
+        </div>
+        <div>
+          <Carousel />
         </div>
       </div>
     </>
