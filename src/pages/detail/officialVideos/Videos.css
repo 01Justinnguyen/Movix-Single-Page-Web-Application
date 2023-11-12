@@ -11,6 +11,16 @@
 }
 .videoThumbnail {
   margin-bottom: 15px;
+  position: relative;
+}
+.videoThumbnail .playBtn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.videoThumbnail > .playBtn svg {
+  max-width: 50px;
 }
 .thumbnail {
   border-radius: 12px;

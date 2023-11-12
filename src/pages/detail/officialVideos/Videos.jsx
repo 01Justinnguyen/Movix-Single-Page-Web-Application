@@ -2,6 +2,7 @@ import React from 'react';
 import './Videos.css';
 import useFetchData from '@/hooks/useFetchData';
 import { useParams } from 'react-router-dom';
+import Playbtn from '../Playbtn';
 
 const Videos = () => {
   const { data, loading } = useFetchData('/movie/744857/videos');
@@ -17,6 +18,9 @@ const Videos = () => {
             <>
               <div className="videoItem">
                 <div className="videoThumbnail">
+                  <div className="playBtn hover:text-pink">
+                    <Playbtn />
+                  </div>
                   <span className="">
                     <img
                       className="thumbnail"
