@@ -1,7 +1,7 @@
 .input-icon {
   position: absolute;
   right: 20px;
-  top: calc(50% + 15px);
+  top: calc(50% + 4px);
   transform: translateY(-50%);
   cursor: pointer;
 }

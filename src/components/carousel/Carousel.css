@@ -1,4 +1,52 @@
-.carouselSection {
+.carouselItems {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  max-width: 100%;
+  overflow: hidden;
+  cursor: pointer;
+}
+.carouselItem {
+  width: 216px;
+  flex-shrink: 0;
+}
+.poster {
   position: relative;
-  margin-bottom: 70px;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 30px;
+  aspect-ratio: 1/1.5;
+}
+.poster > span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+}
+.image {
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.cicleRating {
+  width: 50px;
+  position: absolute;
+  bottom: -20px;
+}
+.textposter {
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+.textposter > .title {
+  font-size: 20px;
+  line-height: 24px;
+  margin-bottom: 10px;
+}
+.date {
+  font-size: 14px;
+  opacity: 0.5;
 }

@@ -54,7 +54,7 @@ const Header = () => {
   }
 
   const setFilterDebounce = debounce((e) => setQuery(e.target.value), 300)
-  console.log('🐻 ~ file: Header.jsx:11 ~ Header ~ query:', query)
+  // console.log('🐻 ~ file: Header.jsx:11 ~ Header ~ query:', query)
 
   return (
     <header className={`transition-all fixed w-[100%] h-[60px] z-[2] top-0 bg-[rgba(0,0,0,0.25)] backdrop-blur-sm ${show ? '' : 'translate-y-[-60px]'}`}>

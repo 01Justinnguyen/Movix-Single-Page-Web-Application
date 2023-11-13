@@ -1,7 +1,14 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
+import { useController } from 'react-hook-form'
 import './inputToggle.css'
 
 const Input = ({ control, label = '', name = '', type = 'text', placeholder = 'Please enter your field', hasIcon = false }) => {
+  const { field } = useController({
+    control,
+    name: name,
+    defaultValue: ''
+  })
+
   const [showToggle, setShowToggle] = useState(false)
 
   const handleShowToggle = () => {
@@ -14,15 +21,18 @@ const Input = ({ control, label = '', name = '', type = 'text', placeholder = 'P
         {label}
       </label>
       <input
-        className={` text-primary w-full ${Boolean(hasIcon) === true ? 'py-4 pr-[60px] pl-5' : 'py-4 px-5'} bg-[#E7ECF3] border-solid border-[1px] border-[#F1F1F3] rounded-xl`}
+        className={` text-primary w-full ${Boolean(hasIcon) === true ? 'py-4 pr-[60px] pl-5' : 'py-4 px-5'} bg-[#E7ECF3] border-solid border-[2px] rounded-xl focus:border-orange`}
+        // focus:border-red transition-all placeholder:text-red
         type={showToggle ? 'password' : `${type}`}
         name={name}
         autoComplete="off"
         id={name}
         placeholder={placeholder}
+        {...field}
       />
+      <p className="mt-1 text-sm textWarning text-orange">Please enter your field</p>
       {Boolean(hasIcon) === true ? (
-        <div className="input-icon text-primary">
+        <div className="transition-all input-icon text-primary">
           {showToggle ? (
             <span onClick={handleShowToggle}>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
