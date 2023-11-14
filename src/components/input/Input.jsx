@@ -30,7 +30,7 @@ const Input = ({ control, label = '', name = '', type = 'text', placeholder = 'P
         placeholder={placeholder}
         {...field}
       />
-      <p className="mt-1 text-sm textWarning text-orange">Please enter your field</p>
+      {/* <p className="mt-1 text-sm textWarning text-orange">Please enter your field</p> */}
       {Boolean(hasIcon) === true ? (
         <div className="transition-all input-icon text-primary">
           {showToggle ? (
