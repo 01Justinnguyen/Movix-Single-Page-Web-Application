@@ -60,7 +60,7 @@ const Header = () => {
     <header className={`transition-all fixed w-[100%] h-[60px] z-[2] top-0 bg-[rgba(0,0,0,0.25)] backdrop-blur-sm ${show ? '' : 'translate-y-[-60px]'}`}>
       <div className="flex items-center justify-between h-full contentWrapper">
         <div className="cursor-pointer" onClick={() => navigate('/')}>
-          <img className="h-[50px] hover:opacity-95 hover:scale-105" src="/movix-logo.svg" alt="Movix logo" />
+          <img className="transition-all  h-[50px] hover:opacity-95 hover:scale-105" src="/movix-logo.svg" alt="Movix logo" />
         </div>
 
         <div className="flex items-center text-lg text-white list-none header-right gap-x-5">

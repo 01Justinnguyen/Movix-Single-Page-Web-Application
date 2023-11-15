@@ -1,3 +1,4 @@
+import * as yup from 'yup'
 import Button from '@/components/button/Button'
 import Field from '@/components/field/Field'
 import ReCAPTCHA from 'react-google-recaptcha'
@@ -8,28 +9,32 @@ import AuthenticationPage from '../AuthenticationPage'
 import './register.css'
 import { useForm } from 'react-hook-form'
 import RadioHook from '@/components/radio/RadioHook'
-import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { toast } from 'react-toastify'
+import Label from '@/components/label/Label'
+
+const schemaValidation = yup
+  .object({
+    email: yup.string().email('Please enter valid email').required('Please enter your email address'),
+    password: yup.string().required('Please enter your password').min(8, 'Your password must be at least 8 characters'),
+    rePassword: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match'),
+    gender: yup.string().required('Please select your gender').oneOf(['male', 'female'], 'Please select correct')
+  })
+  .required()
 
 const Register = () => {
-  const schema = yup
-    .object({
-      email: yup.string().email('Please enter valid email').required('Please enter your email address'),
-      password: yup.string().min(8, 'Your password must be at least 8 characters').required('Please enter your password'),
-      rePassword: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match'),
-      gender: yup.string().required('Please select your gender').oneOf(['male', 'female'], 'You can only choose male or female')
-    })
-    .required()
-
   const [captchaIsDone, setCaptchaIsDone] = useState(false)
   const {
-    register,
     handleSubmit,
     formState: { errors, isSubmitting, isValid },
-    control
+    control,
+    watch
   } = useForm({
-    resolver: yupResolver(schema)
+    resolver: yupResolver(schemaValidation),
+    mode: 'onBlur',
+    defaultValues: {
+      gender: 'male'
+    }
   })
 
   console.log(Object.values(errors))
@@ -46,9 +51,15 @@ const Register = () => {
   }
 
   const onSubmitHandle = (values) => {
-    if (Boolean(captchaIsDone) === false) toast.error('Please accept reCapcha')
+    if (Boolean(captchaIsDone) === false) {
+      toast.error('Please accept reCapcha')
+      return
+    }
+    if (!isValid) return
     console.log('🐻 ~ file: Register.jsx:24 ~ onSubmitHandle ~ values:', values)
   }
+
+  const watchGender = watch('gender')
   return (
     <AuthenticationPage>
       <div onSubmit={handleSubmit(onSubmitHandle)} className="form-wrapper rounded-xl">
@@ -64,16 +75,14 @@ const Register = () => {
           </Field>
           <Field>
             <div>
-              <label htmlFor="" className="block mb-3 cursor-pointer">
-                Gender
-              </label>
-              <div className="flex items-center gap-5">
+              <Label>Select your gender</Label>
+              <div className="flex items-center gap-5 mt-5">
                 <div className="flex items-centers gap-x-3">
-                  <RadioHook checked name="gender" control={control} value="male" />
+                  <RadioHook checked={watchGender === 'male'} name="gender" value="male" control={control} />
                   <span>Male</span>
                 </div>
                 <div className="flex items-centers gap-x-3">
-                  <RadioHook name="gender" control={control} value="female" />
+                  <RadioHook checked={watchGender === 'female'} name="gender" value="female" control={control} />
                   <span>Female</span>
                 </div>
               </div>

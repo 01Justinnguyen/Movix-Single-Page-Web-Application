@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useController } from 'react-hook-form'
+import Label from '../label/Label'
 import './inputToggle.css'
 
 const Input = ({ control, label = '', name = '', type = 'text', placeholder = 'Please enter your field', hasIcon = false }) => {
@@ -17,11 +18,12 @@ const Input = ({ control, label = '', name = '', type = 'text', placeholder = 'P
 
   return (
     <div className="relative w-full Input">
-      <label className="block mb-3 text-[18px] text-white" htmlFor={name}>
-        {label}
-      </label>
+      <Label name={name}>{label}</Label>
+
       <input
-        className={` text-primary w-full ${Boolean(hasIcon) === true ? 'py-4 pr-[60px] pl-5' : 'py-4 px-5'} bg-[#E7ECF3] border-solid border-[2px] rounded-xl focus:border-orange`}
+        className={` text-primary w-full ${
+          Boolean(hasIcon) === true ? 'py-4 pr-[60px] pl-5' : 'py-4 px-5'
+        } bg-[#E7ECF3] border-solid border-[2px] rounded-xl focus:border-orange focus:bg-white transition-all`}
         // focus:border-red transition-all placeholder:text-red
         type={showToggle ? 'password' : `${type}`}
         name={name}
