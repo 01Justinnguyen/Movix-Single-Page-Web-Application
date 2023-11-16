@@ -1,9 +1,11 @@
+import { useAuth } from '@/context/auth-context'
 import debounce from 'lodash.debounce'
 import { useEffect, useState } from 'react'
 import { useNavigate, useLocation, NavLink } from 'react-router-dom'
 import './header.css'
 
 const Header = () => {
+  const { userInfo } = useAuth()
   const [show, setShow] = useState(true)
   const [showProfile, setShowProfile] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
@@ -83,7 +85,7 @@ const Header = () => {
             {showProfile && (
               <div className="absolute header-menu-profile w-[200px] top-[130%] right-0 bg-primary bg-opacity-80 text-white rounded-lg">
                 <div className="m-2 text-center text-white rounded-lg bg-primary h-7">
-                  <span>Hello Liam</span>
+                  <span>Hello {userInfo?.displayName}</span>
                 </div>
                 <ul className="m-2 list-action">
                   <li className="p-1 hover:text-pink">

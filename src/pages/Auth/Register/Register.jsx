@@ -4,7 +4,7 @@ import Field from '@/components/field/Field'
 import ReCAPTCHA from 'react-google-recaptcha'
 import Input from '@/components/input/Input'
 import { useEffect, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import AuthenticationPage from '../AuthenticationPage'
 import './register.css'
 import { useForm } from 'react-hook-form'
@@ -12,9 +12,13 @@ import RadioHook from '@/components/radio/RadioHook'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { toast } from 'react-toastify'
 import Label from '@/components/label/Label'
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore'
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import { auth, db } from '@/firebase/firebase-config'
 
 const schemaValidation = yup
   .object({
+    username: yup.string().required('Vui lòng nhập đầy đủ username'),
     email: yup.string().email('Please enter valid email').required('Please enter your email address'),
     password: yup.string().required('Please enter your password').min(8, 'Your password must be at least 8 characters'),
     rePassword: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match'),
@@ -23,6 +27,10 @@ const schemaValidation = yup
   .required()
 
 const Register = () => {
+  useEffect(() => {
+    document.title = 'Register Page'
+  }, [])
+  const navigate = useNavigate()
   const [captchaIsDone, setCaptchaIsDone] = useState(false)
   const {
     handleSubmit,
@@ -37,8 +45,6 @@ const Register = () => {
     }
   })
 
-  console.log(Object.values(errors))
-
   useEffect(() => {
     const arrErrors = Object.values(errors)
     if (arrErrors.length > 0) {
@@ -50,22 +56,44 @@ const Register = () => {
     setCaptchaIsDone(true)
   }
 
-  const onSubmitHandle = (values) => {
+  const handleSignUp = async (values) => {
     if (Boolean(captchaIsDone) === false) {
       toast.error('Please accept reCapcha')
       return
     }
     if (!isValid) return
-    console.log('🐻 ~ file: Register.jsx:24 ~ onSubmitHandle ~ values:', values)
+
+    try {
+      const credentials = await createUserWithEmailAndPassword(auth, values.email, values.password)
+      await updateProfile(auth.currentUser, {
+        displayName: values.username
+      })
+
+      const userRef = collection(db, 'users')
+      await addDoc(userRef, {
+        email: values.email,
+        password: values.password,
+        username: values.username,
+        id: credentials.user.uid
+      })
+      toast.success('Register successfully!!!')
+    } catch (error) {
+      toast.error('Something went wrong', error.message)
+      console.log(error.message)
+    }
   }
 
   const watchGender = watch('gender')
+
   return (
     <AuthenticationPage>
-      <div onSubmit={handleSubmit(onSubmitHandle)} className="form-wrapper rounded-xl">
+      <div onSubmit={handleSubmit(handleSignUp)} className="form-wrapper rounded-xl">
         <form className="w-full form">
           <Field>
-            <Input control={control} name="email" label="Enter your email" placeholder="Enter your email"></Input>
+            <Input type="text" control={control} name="username" label="Enter your username" placeholder="Enter your username"></Input>
+          </Field>
+          <Field>
+            <Input type="email" control={control} name="email" label="Enter your email" placeholder="Enter your email"></Input>
           </Field>
           <Field>
             <Input control={control} hasIcon name="password" label="Enter your password"></Input>
