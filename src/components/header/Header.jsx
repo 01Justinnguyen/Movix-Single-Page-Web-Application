@@ -1,10 +1,16 @@
 import { useAuth } from '@/context/auth-context'
+import { auth } from '@/firebase/firebase-config'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { signOut } from 'firebase/auth'
 import debounce from 'lodash.debounce'
 import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { useNavigate, useLocation, NavLink } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import './header.css'
 
 const Header = () => {
+  console.log('auth', auth)
   const { userInfo } = useAuth()
   const [show, setShow] = useState(true)
   const [showProfile, setShowProfile] = useState(false)
@@ -12,6 +18,11 @@ const Header = () => {
   const [query, setQuery] = useState(null)
   const navigate = useNavigate()
   const location = useLocation()
+
+  async function handleSignOut() {
+    await signOut(auth)
+    navigate('/login')
+  }
 
   //Đảm bảo khi chuyển trang thì location sẽ lên đầu trang
   useEffect(() => {
@@ -89,7 +100,7 @@ const Header = () => {
                 </div>
                 <ul className="m-2 list-action">
                   <li className="p-1 hover:text-pink">
-                    <a className="flex items-center gap-x-2" href="">
+                    <span onClick={() => toast.info('Chức năng đang được phát triển')} className="flex items-center gap-x-2">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
                         <path
                           strokeLinecap="round"
@@ -98,10 +109,10 @@ const Header = () => {
                         />
                       </svg>
                       Profile
-                    </a>
+                    </span>
                   </li>
                   <li className="p-1 hover:text-pink">
-                    <a className="flex items-center gap-x-2" href="">
+                    <span onClick={handleSignOut} className="flex items-center gap-x-2" href="">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
                         <path
                           strokeLinecap="round"
@@ -110,7 +121,7 @@ const Header = () => {
                         />
                       </svg>
                       Log out
-                    </a>
+                    </span>
                   </li>
                 </ul>
               </div>
